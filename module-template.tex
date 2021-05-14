@@ -1,0 +1,54 @@
+
+% Brymer Meneses, May 14, 2021
+% LaTeX template for answering my school related activities
+
+\title{
+    \Huge{\textbf{\modulename}} \\
+    \normalsize{\modulequarter} \\
+	\small{\modulenumber}
+
+}
+\author{
+	\LARGE{\bf{\myname}} \\
+	\small{\mysection}
+}
+\date{}
+
+\usepackage{
+    geometry,
+	amsmath,
+	textcomp,
+	siunitx,
+    titling,
+    fancyhdr,
+    booktabs,
+    tabularx,
+    graphicx,
+    tikz,
+    multicol,
+}
+\geometry{margin=\docmargin}
+
+% Lesson Number and Lesson Title
+\newcommand{\lesson}[2]{
+    \begin{center}
+        \textbf{\LARGE{Lesson #1 : #1}}
+    \end{center}
+}
+\newcounter{activitynumber}
+\newcommand{\activity}[1]{
+    \stepcounter{activitynumber}
+    \noindent
+    \Large{\textbf{Activity \theactivitynumber \, : #1}}
+}
+
+\fancyhf{}
+\pagestyle{fancy}
+\rhead{\modulename}
+\lhead{\modulenumber}
+\renewcommand{\footrulewidth}{0.4pt}
+\cfoot{\thepage}
+\lfoot{\myname}
+\rfoot{\mysection}
+
+
