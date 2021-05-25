@@ -26,13 +26,26 @@
     graphicx,
     tikz,
     multicol,
+    float,
 }
 \geometry{margin=\docmargin}
 
-% Lesson Number and Lesson Title
-\newcommand{\lesson}[2]{
+\newcounter{lessonnumber}
+\newcommand{\module}[1]{
+    \stepcounter{lessonnumber}
     \begin{center}
-        \textbf{\LARGE{Lesson #1 : #1}}
+        \LARGE
+        \bf Lesson \thelessonnumber: \\ 
+        \normalfont #1
+    \end{center}
+}
+\newcounter{modulenumber}
+\newcommand{\module}[1]{
+    \stepcounter{modulenumber}
+    \begin{center}
+        \LARGE
+        \bf Module \themodulenumber: \\ 
+        \normalfont #1
     \end{center}
 }
 \newcounter{activitynumber}
