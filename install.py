@@ -45,7 +45,7 @@ def process_inputs(choices):
 
     print(f"\nThe following {'template' if len(choices_to_be_installed) == 1 else 'templates'} will be installed:")
     for choice in choices_to_be_installed:
-        print(choice)
+        print(f"\t - {choice}")
 
     return choices_to_be_installed
 
@@ -64,12 +64,14 @@ def download_files(choices):
         file_name = os.path.join(os.getcwd(), TEMPLATES[choice])
         get_file_from_repo(TEMPLATES[choice], file_name)
 
-    decision = input("Download boilerplate tex file (y/n): ")
+    decision = input("\nDownload boilerplate tex file (y/n): ")
     # TODO Dynamically import files based on the 
     # choices
     if decision.lower() == "y":
         get_file_from_repo("boilerplate.tex", "main.tex")
-
+    else:
+        pass
+    print("Success, have a nice day!")
     return
         
         
@@ -78,6 +80,5 @@ if __name__ == "__main__":
     inputs = show_prompt()
     choices = process_inputs(inputs)
     download_files(choices)
-    print("Success, have a nice day!")
 
 
