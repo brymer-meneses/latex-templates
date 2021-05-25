@@ -56,6 +56,10 @@ def get_file_from_repo(repo_file_name, dowloaded_file_name):
     return
 
 def download_files(choices):
+    template_folder = os.path.join(os.getcwd(), "templates")
+    if not os.path.exists(template_folder):
+        os.mkdir(template_folder)
+
     for choice in choices:
         file_name = os.path.join(os.getcwd(), TEMPLATES[choice])
         get_file_from_repo(TEMPLATES[choice], file_name)
