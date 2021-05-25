@@ -38,14 +38,21 @@ def parse_input(input):
 
 def process_inputs(choices):
     choices_to_be_installed = []
+
+    print(f"\nThe following {'template' if len(choices_to_be_installed) == 1 else 'templates'} will be installed:")
     for choice in choices:
         for number, template_name in enumerate(TEMPLATES.keys()):
             if number + 1 == int(choice):
                 choices_to_be_installed.append(template_name)
+                print(f"\t - {choice}")
 
-    print(f"\nThe following {'template' if len(choices_to_be_installed) == 1 else 'templates'} will be installed:")
-    for choice in choices_to_be_installed:
-        print(f"\t - {choice}")
+    proceed_decision = input("Proceed? (y/n): ")
+    if proceed_decision.lower() == "n":
+        exit()
+    elif proceed_decision.lower() == "yes":
+        pass
+    else:
+        print("Invalid decision!")
 
     return choices_to_be_installed
 
