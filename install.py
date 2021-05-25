@@ -23,11 +23,12 @@ def show_prompt():
     print("05-2021")
     print("\n")
 
+    print("Available LaTeX Templates")
     for number, template_name in enumerate(TEMPLATES.keys()):
-        print(f"[{number + 1}]: {template_name}")
+        print(f"\t[{number + 1}]: {template_name}")
 
-    print("\nEnter the LaTeX templates you want to install (separated by space)")
-    chosen_templates = input("Choices: ")
+    print("\nEnter the LaTeX templates you want to install \n(separated by space)")
+    chosen_templates = input("Choices : ")
     inputs = parse_input(chosen_templates)
 
     return inputs
@@ -44,12 +45,12 @@ def process_inputs(choices):
         for number, template_name in enumerate(TEMPLATES.keys()):
             if number + 1 == int(choice):
                 choices_to_be_installed.append(template_name)
-                print(f"\t - {choice}")
+                print(f"\t - {template_name}")
 
     proceed_decision = input("Proceed? (y/n): ")
     if proceed_decision.lower() == "n":
         exit()
-    elif proceed_decision.lower() == "yes":
+    elif proceed_decision.lower() == "y":
         pass
     else:
         print("Invalid decision!")
