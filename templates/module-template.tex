@@ -30,30 +30,58 @@
 }
 \geometry{margin=\docmargin}
 
-\newcounter{lessonnumber}
-\newcommand{\lesson}[1]{
-    \stepcounter{lessonnumber}
-    \begin{center}
-        \LARGE
-        \bf Lesson \thelessonnumber: \\ 
-        \normalfont #1
-    \end{center}
+\newcolumntype{R}[1]{ >{\raggedright\arraybackslash}m{#1} }
+\newcolumntype{C}[1]{ >{\centering\arraybackslash}m{#1} }
+\newcolumntype{L}[1]{ >{\raggedleft\arraybackslash}m{#1} }
+
+\newcommand{\defineNumberedHeading}[2]{
+    % Usage:
+    %       \defineNumberedHeading{command_alias}{heading_mark}
+    % Example:
+    %       \defineNumberedHeading{lesson}{Lesson}
+    %       \lesson{}
+    %
+    \expandafter\newcommand\csname #1\endcsname[1]{%
+        \newcounter{#1num}
+        \stepcounter{#1num}
+        \begin{center}
+            \LARGE \textbf{#2 \csname the#1num\endcsname} : \\[2mm]
+            ##1
+        \end{center}
+    }
 }
-\newcounter{modulenumber}
-\newcommand{\module}[1]{
-    \stepcounter{modulenumber}
-    \begin{center}
-        \LARGE
-        \bf Module \themodulenumber: \\ 
-        \normalfont #1
-    \end{center}
+
+\newcommand{\defineSpecialSection}[2]{
+    % Usage:
+    %       \defineSpecialSection{command_alias}{section_name}
+    % Example:
+    %       \defineSpecialSection{lesson}{Lesson}
+    %       \lesson{}
+    %
+    %       \defineSpecialSection{assess}{Assessment}
+    %       \assess{}
+    \expandafter\newcommand\csname #1\endcsname{\section*{#2}}
 }
-\newcounter{activitynumber}
-\newcommand{\activity}[1]{
-    \stepcounter{activitynumber}
-    \noindent
-    \Large{\textbf{Activity \theactivitynumber \, : #1}}
+
+
+\newcommand{\defineNumberedSection}[2]{
+    % Usage:
+    %       \defineNumberedSection{command_alias}{heading_mark}
+    % Example:
+    %       \defineNumberedSection{activity}{Activity}
+    %       \activity{}
+    %
+    %       \defineNumberedSection{exercise}{Exercise}
+    %       \exercise{}
+    %
+    \newcounter{#1num}
+    \expandafter\newcommand\csname #1\endcsname[1]{%
+        \stepcounter{#1num}
+        \Large \textbf{#2 \csname the#1num\endcsname} : ##1 \\[2mm]
+        \normalsize
+    }
 }
+
 
 \fancyhf{}
 \pagestyle{fancy}
@@ -64,8 +92,5 @@
 \lfoot{\myname}
 \rfoot{\mysection}
 
-\newcolumntype{R}[1]{ >{\raggedright\arraybackslash}m{#1} }
-\newcolumntype{C}[1]{ >{\centering\arraybackslash}m{#1} }
-\newcolumntype{L}[1]{ >{\raggedleft\arraybackslash}m{#1} }
 
 
