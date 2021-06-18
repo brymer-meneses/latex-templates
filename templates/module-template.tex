@@ -34,18 +34,18 @@
 \newcolumntype{C}[1]{ >{\centering\arraybackslash}m{#1} }
 \newcolumntype{L}[1]{ >{\raggedleft\arraybackslash}m{#1} }
 
-\newcommand{\defineNumberedHeading}[2]{
+\newcommand{\defineNumberedHeading}[2]{%
     % Usage:
     %       \defineNumberedHeading{command_alias}{heading_mark}
     % Example:
     %       \defineNumberedHeading{lesson}{Lesson}
     %       \lesson{}
     %
+    \newcounter{#1num}
     \expandafter\newcommand\csname #1\endcsname[1]{%
-        \newcounter{#1num}
         \stepcounter{#1num}
         \begin{center}
-            \LARGE \textbf{#2 \csname the#1num\endcsname} : \\[2mm]
+            \LARGE \textbf{#2 \csname the#1num\endcsname}: \\[2mm]
             ##1
         \end{center}
     }
@@ -77,7 +77,7 @@
     \newcounter{#1num}
     \expandafter\newcommand\csname #1\endcsname[1]{%
         \stepcounter{#1num}
-        \Large \textbf{#2 \csname the#1num\endcsname} : ##1 \\[2mm]
+        \Large \textbf{#2 \csname the#1num\endcsname}: ##1 \\[2mm]
         \normalsize
     }
 }
