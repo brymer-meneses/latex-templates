@@ -11,10 +11,9 @@ import requests
 
 # Dictionary that contains the name and 
 # filename of the LaTeX template
-TEMPLATES = {
-    "module" : r"templates/module-template.tex",
-}
+TEMPLATES = { "module" : r"templates/module-template.tex", }
 REPO_LINK = r"https://raw.githubusercontent.com/brymer-meneses/latex-templates/main"
+
 
 def show_prompt():
     print("\n")
