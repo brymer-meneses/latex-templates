@@ -16,9 +16,9 @@
 
 \usepackage{
     geometry,
-	amsmath,
-	textcomp,
-	siunitx,
+    amsmath,
+    textcomp,
+    siunitx,
     titling,
     fancyhdr,
     booktabs,
@@ -27,8 +27,12 @@
     tikz,
     multicol,
     float,
+    pgffor,
+    ulem,
 }
 \geometry{margin=\docmargin}
+
+\normalem % avoid the redefinition of \emph caused by the package ulem
 
 \newcolumntype{R}[1]{ >{\raggedright\arraybackslash}m{#1} }
 \newcolumntype{C}[1]{ >{\centering\arraybackslash}m{#1} }
