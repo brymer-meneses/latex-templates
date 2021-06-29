@@ -38,6 +38,21 @@
 \newcolumntype{C}[1]{ >{\centering\arraybackslash}m{#1} }
 \newcolumntype{L}[1]{ >{\raggedleft\arraybackslash}m{#1} }
 
+\newcommand{\defineCustomHeading}[2]{
+    % Usage:
+    %       \defineCustomHeading{command_alias}{heading_mark}
+    % Example:
+    %       \defineCustomHeading{mod}{Module}
+    %       \mod{3-4}
+    %
+    \expandafter\newcommand\csname #1\endcsname[1]{
+        \begin{center}
+            \noindent
+            \LARGE \textbf{#2:} ##1 \\[1cm]
+        \end{center}
+    }
+}
+
 \newcommand{\defineNumberedHeading}[2]{%
     % Usage:
     %       \defineNumberedHeading{command_alias}{heading_mark}
@@ -46,7 +61,7 @@
     %       \lesson{}
     %
     \newcounter{#1num}
-    \expandafter\newcommand\csname #1\endcsname[1]{%
+    \expandafter\newcommand\csname #1\endcsname {%
         \stepcounter{#1num}
         \begin{center}
             \LARGE \textbf{#2 \csname the#1num\endcsname}: \\[2mm]
