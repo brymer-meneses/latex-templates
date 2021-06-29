@@ -62,7 +62,7 @@
     %       \lesson{}
     %
     \newcounter{#1num}
-    \expandafter\newcommand\csname #1\endcsname {%
+    \expandafter\newcommand\csname #1\endcsname[1]{%
         \stepcounter{#1num}
         \begin{center}
             \LARGE \textbf{#2 \csname the#1num\endcsname}: \\[2mm]
