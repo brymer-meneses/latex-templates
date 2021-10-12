@@ -1,0 +1,87 @@
+
+\newcommand{\defineCustomHeading}[2]{
+    % Usage:
+    %       \defineCustomHeading{command_alias}{heading_mark}
+    % Example:
+    %       \defineCustomHeading{mod}{Module}
+    %       \mod{3-4}
+    %
+    \expandafter\newcommand\csname #1\endcsname[1]{
+        \begin{center}
+            \noindent
+            \LARGE \textbf{#2:} ##1 \\[1cm]
+        \end{center}
+    }
+}
+
+\newcommand{\defineNumberedHeading}[2]{%
+    % Usage:
+    %       \defineNumberedHeading{command_alias}{heading_mark}
+    % Example:
+    %       \defineNumberedHeading{lesson}{Lesson}
+    %       \lesson{}
+    %
+    \newcounter{#1num}
+    \expandafter\newcommand\csname #1\endcsname[1]{%
+        \stepcounter{#1num}
+        \begin{center}
+            \LARGE \textbf{#2 \csname the#1num\endcsname}: \\[2mm]
+            ##1
+        \end{center}
+    }
+}
+
+\newcommand{\defineSpecialSection}[2]{
+    % Usage:
+    %       \defineSpecialSection{command_alias}{section_name}
+    % Example:
+    %       \defineSpecialSection{lesson}{Lesson}
+    %       \lesson{}
+    %
+    %       \defineSpecialSection{assess}{Assessment}
+    %       \assess{}
+    \expandafter\newcommand\csname #1\endcsname{\section*{#2}}
+}
+
+
+\newcommand{\defineNumberedSection}[2]{
+    % Usage:
+    %       \defineNumberedSection{command_alias}{heading_mark}
+    % Example:
+    %       \defineNumberedSection{activity}{Activity}
+    %       \activity{}
+    %
+    %       \defineNumberedSection{exercise}{Exercise}
+    %       \exercise{}
+    %
+    \newcounter{#1num}
+    \expandafter\newcommand\csname #1\endcsname[1]{%
+        \stepcounter{#1num}
+        \Large \textbf{#2 \csname the#1num\endcsname} ##1 \\[2mm]
+        \normalsize
+    }
+}
+
+\newcommand{\lrp}[1]{ \left( #1 \right) }
+\newcommand{\lrb}[1]{ \left[ #1 \right] }
+\newcommand{\lrcb}[1]{ \left\{ #1 \}}
+\newcommand{\flr}[1]{ \lfloor #1 \rfloor }
+
+\normalem % avoid the redefinition of \emph caused by the package ulem
+
+\newcolumntype{R}[1]{ >{\raggedright\arraybackslash}m{#1} }
+\newcolumntype{C}[1]{ >{\centering\arraybackslash}m{#1} }
+\newcolumntype{L}[1]{ >{\raggedleft\arraybackslash}m{#1} }
+
+
+\newcommand{\boxthis}[2]{ 
+    \begin{center}
+        \fbox{
+            \parbox{#1\textwidth}{
+                #2
+            }
+        }
+    \end{center}
+}
+
+
