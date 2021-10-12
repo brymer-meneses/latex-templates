@@ -1,12 +1,11 @@
 """
 A script that installs my personal LaTeX templates 
-By Brymer Meneses
 """
 
-# initial writing date : may 25, 2021
-# last modified        : oct 12, 2021
-# version              : 0.2
-# author               : brymer meneses
+# Initial Writing Date : May 25, 2021
+# Last Modified        : Oct 12, 2021
+# Version              : 0.2
+# Author               : Brymer Meneses
 
 import os
 import requests
@@ -24,7 +23,7 @@ CORE_FILES = {
 }
 
 
-def show_prompt():
+def prompt():
     """Handles main loop"""
     print(
         """
@@ -51,25 +50,27 @@ def show_prompt():
     if proceed_decision.lower() == "n":
         exit()
     elif proceed_decision.lower() == "y":
-        pass
+        download_templates(templates_to_be_installed)
     else:
         print("Invalid decision!")
 
     print("Success, have a nice day!")
-    return templates_to_be_installed
+    return
 
 
 def merge_files(core_files, template_files):
     """Splices core tex files into a single file"""
-    install_path = os.getcwd()
+    cwd = os.getcwd()
 
-    core_content = None
+    core_content = ""
     for file in core_files:
         core_content += file
         core_content += "\n"
 
     for template_content, template_name in template_files:
-        with open(template_name) as spliced_file:
+        filename = os.path.join(cwd, template_name)
+
+        with open(filename, "w") as spliced_file:
             data = core_content
             data += template_content
             spliced_file.write(data)
@@ -79,31 +80,39 @@ def merge_files(core_files, template_files):
 def download_templates(choices):
     """Helper function to recursively downloads templates"""
 
-    data = []
-    core_files = None
-    template_files = None
+    core_files = []
+    template_files = []
 
     # download core tex files
     for file in CORE_FILES:
-        core_files = data.append(get_file_from_repo(CORE_FILES[file]))
+        downloaded_file = get_file_from_repo(CORE_FILES[file])
+        if downloaded_file is not None:
+            core_files.append(downloaded_file)
+        else:
+            print("Error: perhaps check your internet connection?")
 
     # download template choices
     for choice in choices:
         # save the template name as it will serve as the
         # filename of the spliced file
-        template_files = data.append((get_file_from_repo(TEMPLATES[choice]), choice))
+        downloaded_file = get_file_from_repo(TEMPLATES[choice])
+        if downloaded_file is not None:
+            template_files.append((downloaded_file, f"{choice}.tex"))
+        else:
+            print("Error: perhaps check your internet connection?")
 
     merge_files(core_files, template_files)
     return
 
 
-def get_file_from_repo(repo_file_name):
+def get_file_from_repo(repo_filename):
     """Helper function to download specific files in a repository"""
-    content = requests.get(f"{REPO_LINK}/{repo_file_name}")
-    return content.text
+    r = requests.get(f"{REPO_LINK}/{repo_filename}")
+    if r.status_code == 404:
+        return ""
+    else:
+        return r.text
 
 
 if __name__ == "__main__":
-
-    template_choices = show_prompt()
-    download_templates(template_choices)
+    prompt()
