@@ -13,7 +13,7 @@ import requests
 # Dictionary that contains the name and
 # filename of the LaTeX template
 TEMPLATES = {
-    "module": r"templates/module-template.tex",
+    "module": r"templates/module.tex",
 }
 REPO_LINK = r"https://raw.githubusercontent.com/brymer-meneses/latex-templates/main"
 
@@ -27,8 +27,8 @@ def prompt():
     """Handles main loop"""
     print(
         """
-        LaTeX Templates Installer
-        Brymer Meneses v0.2, 10-2021
+LaTeX Templates Installer
+Brymer Meneses v0.2, 10-2021
         """
     )
 
@@ -63,7 +63,7 @@ def merge_files(core_files, template_files):
     """Splices core tex files into a single file"""
     cwd = os.getcwd()
 
-    print("----> Merging files ...")
+    print("----> Splicing files ...")
     core_content = ""
     for file in core_files:
         core_content += file
@@ -88,23 +88,24 @@ def download_templates(choices):
 
     # download core tex files
     for file in CORE_FILES:
-        downloaded_file = get_file_from_repo(CORE_FILES[file])
+        filename = CORE_FILES[file]
+        downloaded_file = get_file_from_repo(filename)
         if downloaded_file is not None:
             core_files.append(downloaded_file)
-
         else:
-            print("     -- ✕ Error: perhaps check your internet connection?")
+            print(f"     -- ✕ Error: failed to get: {filename}")
     print("     -- ✓ Downloaded core tex files")
 
     # download template choices
     for choice in choices:
         # save the template name as it will serve as the
         # filename of the spliced file
-        downloaded_file = get_file_from_repo(TEMPLATES[choice])
+        filename = TEMPLATES[choice]
+        downloaded_file = get_file_from_repo(filename)
         if downloaded_file is not None:
             template_files.append((downloaded_file, f"{choice}.tex"))
         else:
-            print(f"     -- ✕ Error downloading {choice}.tex")
+            print(f"     -- ✕ Error: failed to get: {filename}")
     print("     -- ✓ Downloaded template tex files")
 
     merge_files(core_files, template_files)
@@ -115,7 +116,7 @@ def get_file_from_repo(repo_filename):
     """Helper function to download specific files in a repository"""
     r = requests.get(f"{REPO_LINK}/{repo_filename}")
     if r.status_code == 404:
-        return ""
+        return None
     else:
         return r.text
 
