@@ -14,6 +14,7 @@ import requests
 # filename of the LaTeX template
 TEMPLATES = {
     "module": r"templates/module.tex",
+    "core": r"templates/core.tex",
 }
 REPO_LINK = r"https://raw.githubusercontent.com/brymer-meneses/latex-templates/main"
 
