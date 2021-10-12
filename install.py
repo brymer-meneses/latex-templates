@@ -37,7 +37,7 @@ def prompt():
         print(f"\t[{number + 1}]: {template_name}")
 
     print("\nEnter the LaTeX templates you want to install")
-    chosen_templates = input("=> ")
+    chosen_templates = input("==> ")
     template_choices = chosen_templates.split(" ")
 
     templates_to_be_installed = []
@@ -46,13 +46,14 @@ def prompt():
             if number + 1 == int(template_id):
                 templates_to_be_installed.append(template_name)
 
-    proceed_decision = input("Proceed? (y/n): ")
+    proceed_decision = input("----> Proceed? [Y/n]: ")
     if proceed_decision.lower() == "n":
         exit()
-    elif proceed_decision.lower() == "y":
+    elif proceed_decision.lower() == "y" or proceed_decision == "":
+        print("----> Downloading Templates ...")
         download_templates(templates_to_be_installed)
     else:
-        print("Invalid decision!")
+        print("     - ✕ Invalid decision!")
 
     print("Success, have a nice day!")
     return
@@ -62,6 +63,7 @@ def merge_files(core_files, template_files):
     """Splices core tex files into a single file"""
     cwd = os.getcwd()
 
+    print("----> Merging files ...")
     core_content = ""
     for file in core_files:
         core_content += file
@@ -74,6 +76,7 @@ def merge_files(core_files, template_files):
             data = core_content
             data += template_content
             spliced_file.write(data)
+    print("     -- ✓ Done")
     return
 
 
@@ -88,8 +91,10 @@ def download_templates(choices):
         downloaded_file = get_file_from_repo(CORE_FILES[file])
         if downloaded_file is not None:
             core_files.append(downloaded_file)
+
         else:
-            print("Error: perhaps check your internet connection?")
+            print("     -- ✕ Error: perhaps check your internet connection?")
+    print("     -- ✓ Downloaded core tex files")
 
     # download template choices
     for choice in choices:
@@ -99,7 +104,8 @@ def download_templates(choices):
         if downloaded_file is not None:
             template_files.append((downloaded_file, f"{choice}.tex"))
         else:
-            print("Error: perhaps check your internet connection?")
+            print(f"     -- ✕ Error downloading {choice}.tex")
+    print("     -- ✓ Downloaded template tex files")
 
     merge_files(core_files, template_files)
     return
